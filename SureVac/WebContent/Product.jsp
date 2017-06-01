@@ -2,7 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.*"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%><table class="table">
+		
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -40,11 +42,11 @@
             SELECT * FROM Product;
         </sql:query>
 
-	<%-- <sql:query var="list2" dataSource="${myDS}">
+	 <sql:query var="list2" dataSource="${myDS}">
             SELECT * FROM Product where pcode='p102';
         </sql:query>
         
-        <sql:query var="list3" dataSource="${myDS}">
+     <%--   <sql:query var="list3" dataSource="${myDS}">
             SELECT * FROM Product where pcode='p103';
         </sql:query>
         
@@ -93,6 +95,8 @@
 
 
 
+         
+
 					<table class="table">
 						<form action="CartServlet" method="POST">
 
@@ -107,10 +111,10 @@
 									<td>Rs: <c:out value="${user.pprice}" /></td>
 									<td><c:out value="${user.pdesc1}" /></td>
 									<td><input type="hidden" name="name" value="${user.pname}">
-										<input type="hidden" name="price" value="${user.pprice}">
-										<!-- <input type="hidden" name="desc" value="${user.pdesc1}"> -->
-										<input type="submit"  value="Add to cart"></td>
-										<%-- <a href="AddCartServlet?id=<c:out value="${user.pname}"/>">Add to cart</a></td> --%>
+																			<input type="hidden" name="price" value="${user.pprice}">
+										<a href="AddCartServlet?id=<c:out value="${user.pname}"/>"
+								class="btn btn-primary">Add To Cart</a>
+										
 								</tr>
 							</c:forEach>
 						</form>

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="java.sql.*"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,10 +27,11 @@
 		url="jdbc:sqlserver://localhost:1433;databaseName=SureVac" user="sa"
 		password="mysqlserver" />
 
-	<sql:query var="list1" dataSource="${myDS}">
-            SELECT * FROM Cart;
-        </sql:query>
+	
         
+       <sql:query var="list1" dataSource="${myDS}">
+           select c.pname ,p.pprice from Cart c join Product p on c.pname=p.pname;
+        </sql:query> 
     
 
 <section id="cart" >
@@ -35,35 +39,27 @@
         <div class="row">
             <div class=" wrap-cart">
             <p>Order Confirmed: </p>
-<table width="892" border="1" cellspacing="0">
-  <tr>
-    <td width="66" align="center"><strong>Item ID</strong></td>
-    <td width="354" align="center"><strong>Product Name &amp; Model</strong></td>
-    <td width="153" align="center"><strong>Brand</strong></td>
-    <td width="148" align="center"><strong>Shipping Charges</strong></td>
-    <td width="237" align="center"><strong>Total Cost</strong></td>
-  </tr>
-  <tr>
-    <td height="75" align="center"></td>
-    <td align="center"><c:forEach var="user" items="${list1.rows}">
+<table class="table">
+		<h1>
+			<th>Product Name</th>
+			<th>Price</th>
+			<th>Actions</th>
+		</h1>
+		<c:forEach var="user" items="${list1.rows}">
+			<h1>
+				<tr>
+					<td><c:out value="${user.pname}" /></td>
+					<td><c:out value="${user.pprice}" /></td>
+					<td><a
+						href="DeleteCartServlet?id=<c:out value="${user.pname}"/>"
+						class="btn btn-primary">Remove</a></td>
+				</tr>
+			</h1>
 
-							<h1>
-								<c:out value="${user.name}" />
-							</h1>
-																			
-						</c:forEach></td>
-    <td align="center"></td>
-    <td align="center">Rs. 0</td>
-    <td align="center">Rs. </td>
-  </tr>
-</table>
-<p>  <p>   <c:forEach var="user" items="${list1.rows}">
+		</c:forEach>
+	</table>
 
-							<h1>
-								<c:out value="${user.name}" />
-							</h1>
-																			
-						</c:forEach></td></p>
+
 <p><strong> Happy Shopping! </strong></p>
 </div>
 </div>

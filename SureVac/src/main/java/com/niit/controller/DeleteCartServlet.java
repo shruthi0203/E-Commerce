@@ -12,28 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.niit.dao.CartDao;
 import com.niit.dao.ProductDao;
 
-
-@WebServlet("/AddCartServlet")
-public class AddCartServlet extends HttpServlet {
+@WebServlet("/DeleteCartServlet")
+public class DeleteCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public AddCartServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+ 
+    public DeleteCartServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		String pname=request.getParameter("id");  
-		
-		int status = CartDao.insert(pname); 
+		String productname=request.getParameter("id");  
+		 
+			
+		int status = CartDao.delete(productname); 
 		if (status > 0) {
 
 			request.getRequestDispatcher("cart.jsp").include(request, response);
 		} else {
-			out.println("Sorry! unable to save record");
+			out.println("Sorry! unable to delete product");
 		}
-
 	}
 
 }
